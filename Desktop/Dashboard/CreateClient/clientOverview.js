@@ -145,7 +145,7 @@ async function loadClients() {
 
                         <td>
                             <a
-                                href="../ViewClient/ViewClient.html?id=${client._id}"
+                                href="../../Clientpage/clientpage.html?id=${client._id}"
                                 class="action-btn"
                             >
                                 View

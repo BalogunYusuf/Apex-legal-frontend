@@ -3,16 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Case | Apex Legal</title>
+    <title>Calender Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="calender.css">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/doopzrzep/image/upload/v1781015014/Group_t2gedq.png">
+    <link
+  href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css"
+  rel="stylesheet"
+/>
 
-    <link rel="stylesheet" href="./CreateCase.css">
-    <script defer src="./viewCase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
 </head>
+
 <body>
 
-<div class="dashboard">
+    <div class="dashboard">
 
-      <!-- SIDEBAR -->
+        <!-- SIDEBAR -->
       <aside class="sidebar">
         <div class="logo">
           <div class="logo-head">
@@ -31,7 +41,7 @@
         </div>
 
         <nav>
-          <a href="#" class="nav-item ">
+          <a href="../Dashboard/Lawyer/Lawyer.html" class="nav-item">
             <svg
               width="18"
               height="18"
@@ -45,10 +55,10 @@
               />
             </svg>
 
-            User dashboard
+            User Dashboard
           </a>
 
-          <a href="../CreateClient/client.Html" class="nav-item">
+          <a href="../Dashboard/CreateClient/client.Html" class="nav-item">
             <svg
               width="22"
               height="16"
@@ -65,7 +75,7 @@
             Client
           </a>
 
-          <a href="../CreateCase/Case.html" class="nav-item active">
+          <a href="../Dashboard/CreateCase/case.html" class="nav-item">
             <svg
               width="24"
               height="24"
@@ -84,7 +94,7 @@
             Cases
           </a>
 
-          <a href="../../Calender/calender.html" class="nav-item">
+          <a href="#" class="nav-item active">
             <svg
               width="24"
               height="24"
@@ -157,11 +167,11 @@
           </a>
         </div>
       </aside>
+        <!-- MAIN -->
+        <main class="main-content">
 
-    <!-- MAIN -->
-    <main class="main-content">
+            <!-- TOPBAR -->
 
-        <!-- TOPBAR -->
         <header class="topbar">
           <div class="search-box">
             <svg width="18" height="24" viewBox="0 0 18 24" fill="none">
@@ -192,259 +202,32 @@
             </div>
           </div>
         </header>
-        <div class="page-content">
+        <div class="overall-space">
 
-    <!-- CASE HEADER -->
-
-    <div class="case-header">
+    <section class="calendar-header">
 
         <div>
-            <h1 id="caseTitle">Loading Case...</h1>
-
-            <p id="caseNumber">
-                Case Number
+            <h1>Hearing Calendar</h1>
+            <p>
+                View all scheduled hearings and court dates.
             </p>
         </div>
 
-        <div class="case-actions">
+    </section>
 
+    <section class="calendar-card">
 
+        <div id="calendar"></div>
 
-            <button
-                id="editCaseBtn"
-                class="primary-btn"
-            >
-                Edit Case
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- CASE INFORMATION -->
-
-    <div class="card">
-
-        <h2>Case Information</h2>
-
-        <div class="info-grid">
-
-            <div>
-                <span>Client</span>
-                <h4 id="clientName">Loading...</h4>
-            </div>
-
-            <div>
-                <span>Status</span>
-                <h4 id="caseStatus">Loading...</h4>
-            </div>
-
-            <div>
-                <span>Case Type</span>
-                <h4 id="caseType">Loading...</h4>
-            </div>
-
-            <div>
-                <span>Priority</span>
-                <h4 id="casePriority">Loading...</h4>
-            </div>
-
-            <div>
-                <span>Court</span>
-                <h4 id="courtName">Loading...</h4>
-            </div>
-
-            <div>
-                <span>Hearing Date</span>
-                <h4 id="hearingDate">Loading...</h4>
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- DESCRIPTION -->
-
-    <div class="card">
-
-        <h2>Case Description</h2>
-
-        <p id="caseDescription">
-            Loading...
-        </p>
-
-    </div>
-
- <!-- DOCUMENTS -->
-
-<div class="card">
-
-    <h2>Case Documents</h2>
-
-    <div class="upload-form">
-
-        <select id="documentCategory">
-            <option value="">Select Category</option>
-
-            <option value="Litigation">Litigation</option>
-            <option value="Corporate Law">Corporate Law</option>
-            <option value="Property Law">Property Law</option>
-            <option value="Criminal Law">Criminal Law</option>
-            <option value="Family Law">Family Law</option>
-            <option value="Arbitration">Arbitration</option>
-            <option value="Internal Template">Internal Template</option>
-            <option value="Compliance">Compliance</option>
-        </select>
-
-        <input
-            type="text"
-            id="documentTag"
-            placeholder="e.g. Evidence A, Witness Statement"
-        >
-
-        <input
-            type="file"
-            id="documentFile"
-            hidden
-        >
-
-        <button
-            id="uploadDocumentBtn"
-            class="primary-btn"
-            type="button"
-        >
-            Upload Document
-        </button>
-
-    </div>
-
-    <div
-        id="documentsList"
-        class="documents-list"
-    >
-
-        <p>
-            No documents uploaded yet.
-        </p>
-
-    </div>
+    </section>
 
 </div>
-
-       <!-- NOTES -->
-
-    <div class="card">
-
-        <div class="section-header">
-
-            <h2>Case Notes</h2>
-
-        </div>
-
-        <div class="note-form">
-
-            <textarea
-                id="newNote"
-                placeholder="Add case note..."
-            ></textarea>
-
-            <button
-                id="saveNoteBtn"
-                class="primary-btn"
-            >
-                Save Note
-            </button>
-
-        </div>
-
-        <div id="notesContainer"></div>
+        
+        </main>
 
     </div>
 
-<!-- HEARINGS -->
-
-<!-- HEARINGS -->
-
-<div class="card">
-
-    <div class="section-header">
-
-        <h2>Hearings</h2>
-
-        <button
-            id="createHearingBtn"
-            class="primary-btn"
-            type="button"
-        >
-            + Schedule Hearing
-        </button>
-
-    </div>
-
-    <div
-        id="hearingForm"
-        class="hearing-form"
-    >
-
-        <input
-            type="text"
-            id="hearingTitle"
-            placeholder="Hearing Title"
-        >
-
-        <input
-            type="date"
-            id="hearingDateInput"
-        >
-
-        <input
-            type="text"
-            id="hearingCourt"
-            placeholder="Court Name"
-        >
-
-        <input
-            type="text"
-            id="hearingCourtroom"
-            placeholder="Courtroom"
-        >
-
-        <input
-            type="text"
-            id="hearingJudge"
-            placeholder="Judge"
-        >
-
-        <button
-            id="saveHearingBtn"
-            class="primary-btn"
-            type="button"
-        >
-            Save Hearing
-        </button>
-
-    </div>
-
-    <div
-        id="hearingsContainer"
-        class="hearings-list"
-    >
-
-        <p>
-            No hearings scheduled.
-        </p>
-
-    </div>
-
-</div>
- </div>
-
-
-</div>
-
-    </main>
-
-</div>
+    <script src="calender.js"></script>
 
 </body>
 </html>
