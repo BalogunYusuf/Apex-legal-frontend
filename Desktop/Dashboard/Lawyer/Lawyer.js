@@ -56,31 +56,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // Fetch everything at once
-    const [statsResponse, userResponse, hearingsResponse] =
-      await Promise.all([
-        fetch(`${DASHBOARD_API}/stats`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
+    const [statsResponse, userResponse, hearingsResponse] = await Promise.all([
+      fetch(`${DASHBOARD_API}/stats`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
 
-        fetch(USER_API, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
+      fetch(USER_API, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
 
-        fetch(MY_HEARINGS_API, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
-      ]);
+      fetch(MY_HEARINGS_API, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    ]);
 
     const statsData = await statsResponse.json();
     const userData = await userResponse.json();
     const hearingsData = await hearingsResponse.json();
-
+    console.log("statsData", statsData);
+    console.log("statsData.cases", statsData.cases);
+    console.log("statsData.recentCases", statsData.recentCases);
     console.log("Dashboard:", statsData);
     console.log("User:", userData);
     console.log("Hearings:", hearingsData);
@@ -90,11 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ======================
 
     const user =
-      userData.user ||
-      userData.data ||
-      userData.currentUser ||
-      userData ||
-      {};
+      userData.user || userData.data || userData.currentUser || userData || {};
 
     const fullName =
       user.fullName ||
@@ -103,10 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       "User";
 
     const profilePicture =
-      user.profilePicture ||
-      user.avatar ||
-      user.profileImage ||
-      "";
+      user.profilePicture || user.avatar || user.profileImage || "";
 
     document.getElementById("userName") &&
       (document.getElementById("userName").textContent = fullName);
@@ -120,8 +114,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         user.role?.toUpperCase() || "STAFF");
 
     document.getElementById("userEmail") &&
-      (document.getElementById("userEmail").textContent =
-        user.email || "");
+      (document.getElementById("userEmail").textContent = user.email || "");
 
     if (document.getElementById("userAvatar") && profilePicture) {
       document.getElementById("userAvatar").src = profilePicture;
@@ -154,10 +147,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ======================
 
     const hearings =
-      hearingsData.hearings ||
-      hearingsData.data ||
-      hearingsData ||
-      [];
+      hearingsData.hearings || hearingsData.data || hearingsData || [];
 
     document.getElementById("upcomingHearingsCount") &&
       (document.getElementById("upcomingHearingsCount").textContent =
@@ -170,10 +160,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const table = document.getElementById("recentCasesTable");
 
     if (table) {
-      const cases =
-        statsData.cases ||
-        statsData.recentCases ||
-        [];
+      const cases = statsData.cases || statsData.recentCases || [];
 
       if (!cases.length) {
         table.innerHTML = `
@@ -207,38 +194,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     // HEARINGS
     // ======================
 
-    const hearingsContainer =
-      document.getElementById("hearingsContainer");
+    const hearingsContainer = document.getElementById("hearingsContainer");
 
     if (hearingsContainer) {
       if (!hearings.length) {
-        hearingsContainer.innerHTML =
-          "<p>No upcoming hearings</p>";
+        hearingsContainer.innerHTML = "<p>No upcoming hearings</p>";
       } else {
         hearingsContainer.innerHTML = hearings
           .map(
             (hearing) => `
             <div class="hearing">
               <span>
-                ${new Date(
-                  hearing.hearingDate
-                ).toLocaleDateString()}
+                ${new Date(hearing.hearingDate).toLocaleDateString()}
               </span>
 
               <h3>
-                ${
-                  hearing.case?.title ||
-                  hearing.caseTitle ||
-                  "Hearing"
-                }
+                ${hearing.case?.title || hearing.caseTitle || "Hearing"}
               </h3>
 
               <p>
-                ${
-                  hearing.location ||
-                  hearing.courtName ||
-                  "Court"
-                }
+                ${hearing.location || hearing.courtName || "Court"}
               </p>
             </div>
           `

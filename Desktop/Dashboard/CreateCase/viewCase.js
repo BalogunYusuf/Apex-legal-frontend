@@ -795,7 +795,103 @@ if (
         }
     );
 }
+// ======================
+// LOAD HEARINGS
+// ======================
 
+async function loadHearings() {
+
+    try {
+
+        const response =
+            await fetch(
+                `http://localhost:8080/api/hearings/case/${caseId}`,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load hearings"
+            );
+        }
+
+        const hearings =
+            data.hearings || [];
+
+        const container =
+            document.getElementById(
+                "hearingsContainer"
+            );
+
+        if (!container) return;
+
+        if (!hearings.length) {
+
+            container.innerHTML = `
+                <p>No hearings scheduled.</p>
+            `;
+
+            return;
+        }
+
+        container.innerHTML = "";
+
+        hearings.forEach(hearing => {
+
+            container.innerHTML += `
+                <div class="hearing-card">
+
+                    <div class="hearing-left">
+
+                        <h4>
+                            ${hearing.title}
+                        </h4>
+
+                        <div class="hearing-date">
+                            ${new Date(
+                                hearing.hearingDate
+                            ).toLocaleDateString()}
+                        </div>
+
+                    </div>
+
+                    <div class="hearing-right">
+
+                        <div class="hearing-court">
+                            ${hearing.courtName}
+                        </div>
+
+                        <div class="hearing-room">
+                            ${
+                                hearing.courtroom ||
+                                "No courtroom assigned"
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
+            `;
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Load Hearings Error:",
+            error
+        );
+    }
+}
 // ======================
 // INIT
 // ======================
@@ -803,3 +899,4 @@ if (
 loadUserInfo();
 loadCase();
 loadDocuments();
+loadHearings()
